@@ -1,0 +1,72 @@
+[build-system]
+requires = ["hatchling>=1.24"]
+build-backend = "hatchling.build"
+
+[project]
+name = "bangla-storyteller"
+version = "0.1.0"
+description = "RAG over your own books: generate cited Bangla or English Facebook-style posts from the CLI or any MCP-capable AI client."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.10"
+authors = [{ name = "Saimum Islam" }]
+keywords = ["bangla", "bengali", "english", "rag", "mcp", "claude", "ocr", "storytelling"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Natural Language :: Bengali",
+    "Topic :: Text Processing :: Linguistic",
+]
+dependencies = [
+    "pdfplumber>=0.11.0",
+    "pytesseract>=0.3.10",
+    "pdf2image>=1.17.0",
+    "Pillow>=10.0.0",
+    "langchain-text-splitters>=0.3.0",
+    "sentence-transformers>=3.0.0",
+    "chromadb>=0.5.0",
+    "openai>=1.40.0",
+    "typer>=0.12.0",
+    "pyyaml>=6.0",
+    "python-dotenv>=1.0.0",
+    "mcp>=1.2.0,<2",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+storyteller = "storyteller.cli:main"
+storyteller-mcp = "storyteller.mcp_server:main"
+
+[project.urls]
+Homepage = "https://github.com/SaimumIslam/storyteller"
+Issues = "https://github.com/SaimumIslam/storyteller/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/storyteller"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"config.yaml" = "storyteller/defaults/config.yaml"
+"rules.yaml" = "storyteller/defaults/rules.yaml"
+"rules-islamic.yaml" = "storyteller/defaults/rules-islamic.yaml"
+"rules-en.yaml" = "storyteller/defaults/rules-en.yaml"
+"styles" = "storyteller/defaults/styles"
+".env.example" = "storyteller/defaults/.env.example"
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "src/",
+    "styles/",
+    "tests/",
+    "config.yaml",
+    "rules.yaml",
+    "rules-islamic.yaml",
+    "rules-en.yaml",
+    ".env.example",
+    "README.md",
+    "LICENSE",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

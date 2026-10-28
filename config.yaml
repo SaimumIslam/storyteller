@@ -1,0 +1,60 @@
+embedding_model: BAAI/bge-m3
+chunk_size: 800
+chunk_overlap: 100
+retrieval_k: 6
+
+default_model: deepseek/deepseek-v4-flash:free
+temperature: 0.7
+
+# Output language: bn (Bangla) | en (English). Picks the prompt template, the
+# rules file and styles/<language>/. Override per run with `ask --lang en`.
+language: bn
+
+# Rules file per language. Any language left out uses rules.yaml (bn) / rules-en.yaml (en).
+rules_files:
+  bn: ./rules.yaml
+  en: ./rules-en.yaml
+
+chroma_path: ./data/chroma
+collection: islamic_history
+
+books_dir: ./books
+output_dir: ./output/posts
+copy_dir: ./output/copy
+state_file: ./data/ingest_state.json
+
+image:
+  enabled: false
+  model_id: dall-e-3            # dall-e-3 | dall-e-2 | any OpenAI-compatible image model
+  prompt_model: ~               # OpenRouter model for writing the image prompt; ~ = use default_model
+  size: 1024x1024               # dall-e-3: 1024x1024 | 1792x1024 | 1024x1792
+  quality: standard             # standard | hd  (dall-e-3 only)
+  output_dir: ./output/images
+
+ocr:
+  enabled: true
+  lang: ben # tesseract pack(s): ben | eng | ben+eng (mixed library). Omit to follow `language`
+  dpi: 300
+  min_chars_per_page: 50
+  force_ocr_files: []
+
+lang_filter:
+  enabled: true # drop chunks written mostly in other scripts (e.g. Arabic quotes, English notes)
+  scripts: [bn] # scripts to keep: bn | en | ar. Use [bn, en] for a mixed library. Omit to follow `language`
+  min_ratio: 0.30 # keep chunk only if the combined ratio of those scripts >= this
+
+boilerplate:
+  drop_index_pages: true # heuristic skip of TOC / index pages (dot-leader detector)
+  drop_cover_page: true # skip very sparse first 1-3 pages (title/author only)
+  drop_front_matter: true # skip ভূমিকা / প্রকাশকের কথা / উৎসর্গ / Introduction etc
+  drop_back_matter: true # skip গ্রন্থপঞ্জি / নির্ঘণ্ট / Bibliography / Glossary etc
+  front_zone_ratio: 0.20 # only scan first 20% of book for front-matter headings
+  back_zone_ratio: 0.15 # only scan last 15% of book for back-matter headings
+  min_page_chars: 80 # drop pages shorter than this (blank / number-only)
+
+# Per-file overrides. Keys = filename in books/.
+book_overrides: {}
+#   example-seerah.pdf:
+#     front_skip_pages: 12     # skip preface, dedication, publisher notes
+#     back_skip_pages: 20      # skip index, glossary, bibliography
+#     skip_pages: [45, 46]     # specific page numbers to drop

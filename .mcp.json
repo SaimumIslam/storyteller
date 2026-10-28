@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "storyteller": {
+      "command": "uv",
+      "args": ["run", "storyteller-mcp"]
+    }
+  }
+}

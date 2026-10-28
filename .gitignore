@@ -1,0 +1,27 @@
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+.env
+.DS_Store
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.idea/
+.vscode/
+
+# User library: books are usually copyrighted, the index is derived from them
+books/*
+!books/.gitkeep
+data/
+
+# Generated output
+output/posts/*
+!output/posts/.gitkeep
+output/copy/*
+!output/copy/.gitkeep
+output/images/
+
+styles/_private/

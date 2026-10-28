@@ -1,0 +1,8 @@
+venv/
+.venv/
+books/
+data/
+output/
+.env
+.git/
+**/__pycache__/

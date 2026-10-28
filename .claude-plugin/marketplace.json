@@ -1,0 +1,16 @@
+{
+  "name": "storyteller",
+  "owner": {
+    "name": "Saimum Islam"
+  },
+  "metadata": {
+    "description": "Storyteller: cited Bangla posts from your own book library."
+  },
+  "plugins": [
+    {
+      "name": "storyteller",
+      "source": "./plugin",
+      "description": "Write cited Bangla Facebook posts from your own books (RAG over PDFs, Bangla OCR)."
+    }
+  ]
+}

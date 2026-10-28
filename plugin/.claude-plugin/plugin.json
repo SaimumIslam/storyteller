@@ -1,0 +1,12 @@
+{
+  "name": "storyteller",
+  "version": "0.1.0",
+  "description": "Write cited Bangla Facebook posts from your own books (RAG over PDFs, Bangla OCR).",
+  "author": {
+    "name": "Saimum Islam"
+  },
+  "homepage": "https://github.com/SaimumIslam/storyteller",
+  "repository": "https://github.com/SaimumIslam/storyteller",
+  "license": "MIT",
+  "keywords": ["bangla", "rag", "facebook", "writing"]
+}

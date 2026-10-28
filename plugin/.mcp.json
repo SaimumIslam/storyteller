@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "storyteller": {
+      "command": "uvx",
+      "args": [
+        "--python", "3.12",
+        "--from", "git+https://github.com/SaimumIslam/storyteller",
+        "storyteller-mcp"
+      ]
+    }
+  }
+}
